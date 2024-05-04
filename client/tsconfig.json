@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "jsx": "react", // or "preserve" if you're using another tool to transform JSX, like Babel
+        // other compiler options...
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["src/*"]
+        },
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "types": ["node"]
+    }
+    // other configuration...
+}
