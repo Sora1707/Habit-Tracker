@@ -9,9 +9,6 @@ export type Habit = {
 };
 
 export function habitCompare(habitA: Habit, habitB: Habit) {
-    if (habitA.isActivated) return -1;
-    if (habitB.isActivated) return 1;
-
     if (habitA.priority > habitB.priority) return -1;
     if (habitA.priority < habitB.priority) return 1;
 
@@ -27,5 +24,5 @@ export function habitCompare(habitA: Habit, habitB: Habit) {
     // if (habitAcreatedAt > habitBcreatedAt) return -1;
     // if (habitAcreatedAt < habitBcreatedAt) return 1;
 
-    return 1;
+    return 0;
 }
