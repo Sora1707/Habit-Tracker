@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import HabitBox from "~/components/HabitBox";
+import HabitBox from "~/components/HabitsManager";
 import DefaultLayout from "~/layouts/DefaultLayout";
 
 function App() {
