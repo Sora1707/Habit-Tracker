@@ -1,4 +1,4 @@
-import { Query, Resolver } from "@nestjs/graphql";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { Habit } from "./habit.model";
 import { Habit as HabitMongooseSchema } from "./habit.schema";
 import { BaseService, InjectBaseService } from "@/BaseService";
@@ -12,6 +12,15 @@ export class HabitResolver {
 
     @Query(returns => [Habit], { name: "allHabits" })
     async getAllHabits() {
-        return this.habitService.findMany({});
+        return await this.habitService.findMany({});
+    }
+
+    @Mutation(returns => Boolean, { name: "toggleHabitActivation" })
+    async toggleHabitActivation(@Args({ name: "id" }) id: string) {
+        const habit = await this.habitService.findById(id);
+        const result = await this.habitService.updateById(id, {
+            isActivated: !habit.isActivated,
+        });
+        return !!result;
     }
 }

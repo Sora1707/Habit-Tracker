@@ -34,13 +34,13 @@ export abstract class BaseService<T> {
         return result;
     }
 
-    public async update(
-        filter: Partial<T> & { id: ObjectId },
-        input: Partial<T>,
-    ) {
-        const result = await this.model.updateMany(filter, input, {
-            new: true,
-        });
+    public async updateMany(filter: FilterQuery<T>, input: Partial<T>) {
+        const result = await this.model.updateMany(filter, input);
+        return result;
+    }
+
+    public async updateById(id: string, input: Partial<T>) {
+        const result = await this.model.updateOne({ _id: id }, input);
         return result;
     }
 }
