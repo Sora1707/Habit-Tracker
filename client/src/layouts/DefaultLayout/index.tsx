@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./style.module.scss";
+import styles from "./DefaultLayout.module.scss";
 import { getStyle } from "~/utils";
 
 const cx = getStyle(styles);

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, JSX } from "react";
 import { getStyle, getDateString } from "~/utils";
-import styles from "./style.module.scss";
+import styles from "./HabitsManager.module.scss";
 import { Habit, habitCompare } from "~/types/Habit";
 import { Table } from "react-bootstrap";
-import SwitchButton from "../SwtichButton";
+import SwitchButton from "../SwitchButton";
 
 const cx = getStyle(styles);
 

@@ -1,13 +1,14 @@
 import React from "react";
 import "./App.css";
-import HabitBox from "~/components/HabitsManager";
+import { HabitsManager, CreateHabitBox } from "~/components";
 import DefaultLayout from "~/layouts/DefaultLayout";
 
 function App() {
     return (
         <div className="App">
             <DefaultLayout>
-                <HabitBox />
+                {/* <HabitsManager /> */}
+                <CreateHabitBox />
             </DefaultLayout>
         </div>
     );
