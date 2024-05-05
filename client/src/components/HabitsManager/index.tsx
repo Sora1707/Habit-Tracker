@@ -7,60 +7,58 @@ import SwitchButton from "../SwitchButton";
 
 const cx = getStyle(styles);
 
-const myHabits: Habit[] = [
-    {
-        id: "123",
-        content: "1",
-        priority: 1,
-        isActivated: true,
-        color: "#000000",
-        createdAt: new Date(),
-        activatedAt: new Date(),
-    },
-    {
-        id: "124",
-        content: "2",
-        priority: 2,
-        isActivated: false,
-        color: "#111111",
-        createdAt: new Date(),
-        activatedAt: new Date(),
-    },
-    {
-        id: "124",
-        content: "3",
-        priority: 3,
-        isActivated: false,
-        color: "#111111",
-        createdAt: new Date(),
-        activatedAt: new Date(),
-    },
-    {
-        id: "124",
-        content: "4",
-        priority: 4,
-        isActivated: true,
-        color: "#111111",
-        createdAt: new Date(),
-        activatedAt: new Date(),
-    },
-    {
-        id: "125",
-        content: "5",
-        priority: 5,
-        isActivated: true,
-        color: "#111111",
-        createdAt: new Date(),
-        activatedAt: new Date(),
-    },
-];
+// const myHabits: Habit[] = [
+//     {
+//         id: "123",
+//         content: "1",
+//         priority: 1,
+//         isActivated: true,
+//         color: "#000000",
+//         createdAt: new Date(),
+//         activatedAt: new Date(),
+//     },
+//     {
+//         id: "124",
+//         content: "2",
+//         priority: 2,
+//         isActivated: false,
+//         color: "#111111",
+//         createdAt: new Date(),
+//         activatedAt: new Date(),
+//     },
+//     {
+//         id: "124",
+//         content: "3",
+//         priority: 3,
+//         isActivated: false,
+//         color: "#111111",
+//         createdAt: new Date(),
+//         activatedAt: new Date(),
+//     },
+//     {
+//         id: "124",
+//         content: "4",
+//         priority: 4,
+//         isActivated: true,
+//         color: "#111111",
+//         createdAt: new Date(),
+//         activatedAt: new Date(),
+//     },
+//     {
+//         id: "125",
+//         content: "5",
+//         priority: 5,
+//         isActivated: true,
+//         color: "#111111",
+//         createdAt: new Date(),
+//         activatedAt: new Date(),
+//     },
+// ];
 
 function HabitBox() {
     const [habits, setHabits] = useState<Habit[]>([]);
 
-    useEffect(() => {
-        setHabits(myHabits);
-    }, []);
+    useEffect(() => {}, []);
 
     function toggleHabitActivity(index: number) {
         // Create a completely new habits array
@@ -81,8 +79,10 @@ function HabitBox() {
             <tr key={index}>
                 <td>{rows.length + 1}</td>
                 <td>{habit.content}</td>
-                <td>{getDateString(habit.createdAt)}</td>
-                <td>{getDateString(habit.activatedAt)}</td>
+                {/* <td>{getDateString(habit.createdAt)}</td>
+                <td>{getDateString(habit.activatedAt)}</td> */}
+                <td></td>
+                <td></td>
                 <td>
                     <SwitchButton
                         checked={habit.isActivated}
