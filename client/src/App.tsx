@@ -7,8 +7,8 @@ function App() {
     return (
         <div className="App">
             <DefaultLayout>
-                {/* <HabitsManager /> */}
-                <CreateHabitBox />
+                <HabitsManager />
+                {/* <CreateHabitBox /> */}
             </DefaultLayout>
         </div>
     );

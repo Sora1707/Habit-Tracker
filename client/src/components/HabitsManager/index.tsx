@@ -4,6 +4,7 @@ import styles from "./HabitsManager.module.scss";
 import { Habit, habitCompare } from "~/types/Habit";
 import { Table } from "react-bootstrap";
 import SwitchButton from "../SwitchButton";
+import { dataQuery } from "~/services";
 
 const cx = getStyle(styles);
 
@@ -58,7 +59,22 @@ const cx = getStyle(styles);
 function HabitBox() {
     const [habits, setHabits] = useState<Habit[]>([]);
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const query = `
+        query {
+            allHabits {
+                id,
+                content,
+                color,
+                priority,
+                isActivated
+              }
+          }
+        `;
+        dataQuery(query, "allHabits").then((habits: Habit[]) =>
+            setHabits(habits)
+        );
+    }, []);
 
     function toggleHabitActivity(index: number) {
         // Create a completely new habits array
@@ -67,6 +83,8 @@ function HabitBox() {
         setHabits(newHabits);
         // Change database
     }
+
+    console.log(habits);
 
     // Divide into "Activated" and "Inactivated"
     const activatedHabitsRows: JSX.Element[] = [];
