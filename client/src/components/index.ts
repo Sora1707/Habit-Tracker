@@ -4,4 +4,5 @@ export { default as SwitchButton } from "./SwitchButton";
 export { default as CreateHabitBox } from "./CreateHabitBox";
 export { default as DailyRecordBox } from "./DailyRecordBox";
 export { default as WeekRecordBox } from "./WeekRecordBox";
+export { default as Header } from "./Header";
 export * from "./Redirect";
