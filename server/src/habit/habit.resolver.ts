@@ -29,7 +29,7 @@ export class HabitResolver {
     async updateById(
         @Args({ name: "id" }) id: string,
         @Args({ name: "input", nullable: true, type: () => HabitUpdateInput })
-        input: FilterQuery<HabitMongooseSchema>,
+        input: Partial<HabitMongooseSchema>,
     ) {
         const result = await this.habitService.updateById(id, input);
         return !!result;

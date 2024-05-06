@@ -27,3 +27,10 @@ export class Habit {
 }
 
 export const HabitSchema = SchemaFactory.createForClass(Habit);
+
+HabitSchema.pre("save", async function (next) {
+    if (!this.activatedAt) {
+        this.activatedAt = new Date();
+    }
+    next();
+});
