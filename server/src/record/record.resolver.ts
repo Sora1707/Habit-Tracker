@@ -48,7 +48,7 @@ export class RecordResolver {
         return await this.recordService.findMany(filter);
     }
 
-    @Mutation(returns => Boolean, { name: "createRecord" })
+    @Mutation(returns => Record, { name: "createRecord" })
     async create(
         @Args({ name: "habitId" }) habitId: string,
         @Args({ name: "date" }) date: string,
@@ -57,7 +57,7 @@ export class RecordResolver {
             habit: new Types.ObjectId(habitId),
             date,
         });
-        return !!result;
+        return result;
     }
 
     @Mutation(returns => Boolean, { name: "deleteRecordById" })
