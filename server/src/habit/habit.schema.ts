@@ -1,6 +1,11 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-@Schema()
+@Schema({
+    timestamps: {
+        createdAt: "createdAt",
+        updatedAt: false,
+    },
+})
 export class Habit {
     @Prop()
     content: string;
@@ -13,6 +18,12 @@ export class Habit {
 
     @Prop({ default: false })
     isActivated: boolean;
+
+    @Prop()
+    createdAt: Date;
+
+    @Prop()
+    activatedAt: Date;
 }
 
 export const HabitSchema = SchemaFactory.createForClass(Habit);

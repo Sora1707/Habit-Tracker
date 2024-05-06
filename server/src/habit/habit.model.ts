@@ -16,4 +16,10 @@ export default class Habit {
 
     @Field()
     isActivated: boolean;
+
+    @Field()
+    createdAt: Date;
+
+    @Field()
+    activatedAt: Date;
 }
