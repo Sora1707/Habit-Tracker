@@ -1,4 +1,4 @@
-export async function dataQuery(query: string, fnName: string) {
+export async function dataQuery<T>(query: string, fnName: string): Promise<T> {
     try {
         const response = await fetch("http://localhost:3005/graphql", {
             method: "POST",
@@ -15,7 +15,7 @@ export async function dataQuery(query: string, fnName: string) {
         });
         const data = await response.json();
 
-        const result = data?.data[fnName];
+        const result: T = data?.data[fnName];
         if (!result) throw new Error("Empty responsed data");
         return result;
     } catch (error) {
@@ -23,7 +23,10 @@ export async function dataQuery(query: string, fnName: string) {
     }
 }
 
-export async function dataMutation(query: string) {
+export async function dataMutation<T>(
+    query: string,
+    fnName: string
+): Promise<T> {
     try {
         const response = await fetch("http://localhost:3005/graphql", {
             method: "POST",
@@ -40,7 +43,7 @@ export async function dataMutation(query: string) {
         });
         const data = await response.json();
 
-        const result = data?.data;
+        const result: T = data?.data[fnName];
         if (!result) throw new Error("Cannot perform the mutation");
         return result;
     } catch (error) {
