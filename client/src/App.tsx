@@ -3,15 +3,23 @@ import "./App.css";
 import { HabitsManager, CreateHabitBox } from "~/components";
 import DefaultLayout from "~/layouts/DefaultLayout";
 import DailyRecordBox from "./components/DailyRecordBox";
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
     return (
         <div className="App">
-            <DefaultLayout>
-                {/* <DailyRecordBox /> */}
-                {/* <HabitsManager /> */}
-                <CreateHabitBox />
-            </DefaultLayout>
+            <Routes>
+                <Route
+                    path="/create"
+                    element={
+                        <DefaultLayout>
+                            <CreateHabitBox />
+                        </DefaultLayout>
+                    }
+                />
+                <Route path="/day" element={<DailyRecordBox />} />
+                <Route path="/manager" element={<CreateHabitBox />} />
+            </Routes>
         </div>
     );
 }
