@@ -2,13 +2,15 @@ import React from "react";
 import "./App.css";
 import { HabitsManager, CreateHabitBox } from "~/components";
 import DefaultLayout from "~/layouts/DefaultLayout";
+import DailyRecordBox from "./components/DailyRecordBox";
 
 function App() {
     return (
         <div className="App">
             <DefaultLayout>
-                <HabitsManager />
-                {/* <CreateHabitBox /> */}
+                {/* <DailyRecordBox /> */}
+                {/* <HabitsManager /> */}
+                <CreateHabitBox />
             </DefaultLayout>
         </div>
     );

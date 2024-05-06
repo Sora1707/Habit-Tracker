@@ -79,7 +79,7 @@ function HabitBox() {
         const query = `
         toggleHabitActivation(id: "${habits[index].id}") 
         `;
-        await dataMutation(query);
+        await dataMutation(query, "toggleHabitActivation");
 
         // Create a completely new habits array
         const newHabits = [...habits];

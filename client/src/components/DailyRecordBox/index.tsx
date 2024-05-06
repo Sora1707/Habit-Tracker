@@ -106,7 +106,7 @@ function DailyRecordBox() {
     return (
         <div className={cx("container")}>
             <div className={cx("activated-habits")}>
-                <h3>Activated Habits</h3>
+                <h3>Complete Habits</h3>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -119,7 +119,7 @@ function DailyRecordBox() {
                 </Table>
             </div>
             <div className={cx("inactivated-habits")}>
-                <h3>Inactivated Habits</h3>
+                <h3>Incomplete Habits</h3>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
