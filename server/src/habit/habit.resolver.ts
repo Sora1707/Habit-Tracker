@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { Habit } from "./habit.model";
+import Habit from "./habit.model";
 import { Habit as HabitMongooseSchema } from "./habit.schema";
 import { BaseService, InjectBaseService } from "@/BaseService";
 
@@ -11,7 +11,7 @@ export class HabitResolver {
     ) {}
 
     @Query(returns => [Habit], { name: "allHabits" })
-    async getAllHabits() {
+    async getAll() {
         return await this.habitService.findMany({});
     }
 

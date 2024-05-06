@@ -1,12 +1,13 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { AppController } from "./app.service";
 import { MongooseModule } from "@nestjs/mongoose";
-import { createBaseService, getBaseServiceToken } from "./BaseService";
-import { Habit, HabitSchema } from "./habits/habit.schema";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
-import { HabitResolver } from "./habits/habit.resolver";
+import { createBaseService, getBaseServiceToken } from "./BaseService";
+import { Habit, HabitSchema } from "./habit/habit.schema";
+import { HabitResolver } from "./habit/habit.resolver";
+import { Record, RecordSchema } from "./record/record.schema";
+import { RecordResolver } from "./record/record.resolver";
 
 @Module({
     imports: [
@@ -25,6 +26,9 @@ import { HabitResolver } from "./habits/habit.resolver";
             inject: [ConfigService],
         }),
         MongooseModule.forFeature([{ name: Habit.name, schema: HabitSchema }]),
+        MongooseModule.forFeature([
+            { name: Record.name, schema: RecordSchema },
+        ]),
     ],
     providers: [
         {
@@ -32,6 +36,12 @@ import { HabitResolver } from "./habits/habit.resolver";
             useClass: createBaseService(Habit),
         },
         HabitResolver,
+
+        {
+            provide: getBaseServiceToken(Record),
+            useClass: createBaseService(Record),
+        },
+        RecordResolver,
     ],
 })
 export class AppModule {}
