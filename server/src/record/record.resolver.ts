@@ -48,7 +48,7 @@ export class RecordResolver {
         return await this.recordService.findMany(filter);
     }
 
-    @Mutation(returns => Boolean, { name: "createRecords" })
+    @Mutation(returns => Boolean, { name: "createRecord" })
     async create(
         @Args({ name: "habitId" }) habitId: string,
         @Args({ name: "date" }) date: string,
