@@ -1,5 +1,5 @@
 import React, { useState, useEffect, JSX, useMemo } from "react";
-import { getStyle, getDateString } from "~/utils";
+import { getStyle, getDateString, getFormattedDateString } from "~/utils";
 import styles from "./DailyRecordBox.module.scss";
 import { Habit, habitCompare, Record, RecordMap } from "~/types";
 import { Table } from "react-bootstrap";
@@ -123,20 +123,23 @@ function DailyRecordBox() {
 
     return (
         <div className={cx("container")}>
-            <div className={cx("activated-habits")}>
+            <h1 className={cx("title")}>
+                {getFormattedDateString(new Date(`${year}/${month}/${day}`))}
+            </h1>
+            <div className={cx("activated-habits", "table")}>
                 <h3>Complete Habits</h3>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Content</th>
-                            <th>Status</th>
+                            <th className={cx("smaller-column")}>Status</th>
                         </tr>
                     </thead>
                     <tbody>{completeHabitsRows}</tbody>
                 </Table>
             </div>
-            <div className={cx("inactivated-habits")}>
+            <div className={cx("inactivated-habits", "table")}>
                 <h3>Incomplete Habits</h3>
                 <Table striped bordered hover>
                     <thead>

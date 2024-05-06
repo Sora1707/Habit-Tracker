@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import { HabitsManager, CreateHabitBox } from "~/components";
+import { HabitManager, CreateHabitBox } from "~/components";
 import DefaultLayout from "~/layouts/DefaultLayout";
 import DailyRecordBox from "./components/DailyRecordBox";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
     return (
@@ -29,7 +29,7 @@ function App() {
                     path="/manager"
                     element={
                         <DefaultLayout>
-                            <HabitsManager />
+                            <HabitManager />
                         </DefaultLayout>
                     }
                 />

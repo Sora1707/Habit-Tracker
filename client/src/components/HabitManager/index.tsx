@@ -1,6 +1,6 @@
 import React, { useState, useEffect, JSX } from "react";
 import { getStyle, getDateString } from "~/utils";
-import styles from "./HabitsManager.module.scss";
+import styles from "./HabitManager.module.scss";
 import { Habit, habitCompare } from "~/types";
 import { Table } from "react-bootstrap";
 import SwitchButton from "../SwitchButton";
@@ -8,55 +8,7 @@ import { dataMutation, dataQuery } from "~/services";
 
 const cx = getStyle(styles);
 
-// const myHabits: Habit[] = [
-//     {
-//         id: "123",
-//         content: "1",
-//         priority: 1,
-//         isActivated: true,
-//         color: "#000000",
-//         createdAt: new Date(),
-//         activatedAt: new Date(),
-//     },
-//     {
-//         id: "124",
-//         content: "2",
-//         priority: 2,
-//         isActivated: false,
-//         color: "#111111",
-//         createdAt: new Date(),
-//         activatedAt: new Date(),
-//     },
-//     {
-//         id: "124",
-//         content: "3",
-//         priority: 3,
-//         isActivated: false,
-//         color: "#111111",
-//         createdAt: new Date(),
-//         activatedAt: new Date(),
-//     },
-//     {
-//         id: "124",
-//         content: "4",
-//         priority: 4,
-//         isActivated: true,
-//         color: "#111111",
-//         createdAt: new Date(),
-//         activatedAt: new Date(),
-//     },
-//     {
-//         id: "125",
-//         content: "5",
-//         priority: 5,
-//         isActivated: true,
-//         color: "#111111",
-//         createdAt: new Date(),
-//         activatedAt: new Date(),
-//     },
-// ];
-
-function HabitBox() {
+function HabitManager() {
     const [habits, setHabits] = useState<Habit[]>([]);
 
     useEffect(() => {
@@ -112,6 +64,7 @@ function HabitBox() {
             <tr key={index}>
                 <td>{rows.length + 1}</td>
                 <td>{habit.content}</td>
+                <td>{habit.priority}</td>
                 <td>{getDateString(habit.createdAt)}</td>
                 <td>{getDateString(habit.activatedAt)}</td>
                 <td>
@@ -129,31 +82,37 @@ function HabitBox() {
 
     return (
         <div className={cx("container")}>
-            <div className={cx("activated-habits")}>
+            <div className={cx("activated-habits", "table")}>
                 <h3>Activated Habits</h3>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Content</th>
-                            <th>Created at</th>
-                            <th>Last activated at</th>
-                            <th>Status</th>
+                            <th className={cx("smaller-column")}>Priority</th>
+                            <th className={cx("medium-column")}>Created at</th>
+                            <th className={cx("medium-column")}>
+                                Last activated at
+                            </th>
+                            <th className={cx("smaller-column")}>Status</th>
                         </tr>
                     </thead>
                     <tbody>{activatedHabitsRows}</tbody>
                 </Table>
             </div>
-            <div className={cx("inactivated-habits")}>
+            <div className={cx("inactivated-habits, table")}>
                 <h3>Inactivated Habits</h3>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Content</th>
-                            <th>Created at</th>
-                            <th>Last activated at</th>
-                            <th>Status</th>
+                            <th>Priority</th>
+                            <th className={cx("medium-column")}>Created at</th>
+                            <th className={cx("medium-column")}>
+                                Last activated at
+                            </th>
+                            <th className={cx("smaller-column")}>Status</th>
                         </tr>
                     </thead>
                     <tbody>{inactivatedHabitsRows}</tbody>
@@ -163,4 +122,4 @@ function HabitBox() {
     );
 }
 
-export default HabitBox;
+export default HabitManager;
