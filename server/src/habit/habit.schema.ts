@@ -11,7 +11,7 @@ export class Habit {
     @Prop()
     color: string;
 
-    @Prop()
+    @Prop({ default: false })
     isActivated: boolean;
 }
 
