@@ -17,8 +17,22 @@ function App() {
                         </DefaultLayout>
                     }
                 />
-                <Route path="/day" element={<DailyRecordBox />} />
-                <Route path="/manager" element={<CreateHabitBox />} />
+                <Route
+                    path="/day"
+                    element={
+                        <DefaultLayout>
+                            <DailyRecordBox />
+                        </DefaultLayout>
+                    }
+                />
+                <Route
+                    path="/manager"
+                    element={
+                        <DefaultLayout>
+                            <HabitsManager />
+                        </DefaultLayout>
+                    }
+                />
             </Routes>
         </div>
     );

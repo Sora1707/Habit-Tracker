@@ -67,6 +67,7 @@ function CreateHabitBox() {
                 onClick={e => {
                     e.preventDefault();
                     createHabit();
+                    window.location.href = "/manager";
                 }}
             >
                 Submit
