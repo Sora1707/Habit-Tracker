@@ -1,8 +1,8 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, Int, ID, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export default class Habit {
-    @Field()
+    @Field(type => ID)
     id: string;
 
     @Field()
