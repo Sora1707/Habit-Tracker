@@ -7,12 +7,13 @@ import {
     ResolveField,
     Resolver,
 } from "@nestjs/graphql";
-import { Types } from "mongoose";
+import { FilterQuery, Types } from "mongoose";
 import { BaseService, InjectBaseService } from "@/BaseService";
 import Record from "./record.model";
 import { Record as RecordMongooseSchema } from "./record.schema";
 import Habit from "../habit/habit.model";
 import { Habit as HabitMongooseSchema } from "../habit/habit.schema";
+import RecordFilterInput from "./record.partial";
 
 @Resolver(of => Record)
 export class RecordResolver {
@@ -37,6 +38,14 @@ export class RecordResolver {
     ) {
         const date = `${year}/${month < 10 ? "0" : ""}${month}/${day < 10 ? "0" : ""}${day}`;
         return await this.recordService.findMany({ date });
+    }
+
+    @Query(returns => [Record], { name: "findManyRecords" })
+    async findMany(
+        @Args({ name: "filter", nullable: true, type: () => RecordFilterInput })
+        filter: FilterQuery<RecordMongooseSchema>,
+    ) {
+        return await this.recordService.findMany(filter);
     }
 
     @Mutation(returns => Boolean, { name: "createRecords" })
