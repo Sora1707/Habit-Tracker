@@ -91,7 +91,7 @@ function HabitManager() {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th className={cx("index-column")}>#</th>
                             <th>Habit</th>
                             <th className={cx("smaller-column")}>Priority</th>
                             <th className={cx("medium-column")}>Created at</th>
@@ -109,8 +109,8 @@ function HabitManager() {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Content</th>
+                            <th className={cx("index-column")}>#</th>
+                            <th>Habit</th>
                             <th className={cx("smaller-column")}>Priority</th>
                             <th className={cx("medium-column")}>Created at</th>
                             <th className={cx("medium-column")}>

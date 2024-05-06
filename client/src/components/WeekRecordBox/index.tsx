@@ -91,10 +91,10 @@ function WeekRecordBox() {
                       )} - ${getDateStringByDate(weekDates[6])}`}
             </h1>
             <div className={cx("table")}>
-                <h3>Complete Habits</h3>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
+                            <th className={cx("index-column")}>#</th>
                             <th>Habit</th>
                             {weekDates.map(date => (
                                 <th
@@ -109,9 +109,10 @@ function WeekRecordBox() {
                         </tr>
                     </thead>
                     <tbody>
-                        {habits.map(habit => {
+                        {habits.map((habit, index) => {
                             return (
-                                <tr key={habit.id}>
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
                                     <td>{habit.content}</td>
                                     {weekDates.map(date => {
                                         const dateString =

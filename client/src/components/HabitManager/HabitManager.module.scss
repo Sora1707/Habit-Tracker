@@ -1,5 +1,6 @@
 .container {
-    width: 800px;
+    margin-top: 150px;
+    width: 1000px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,4 +20,8 @@
 
 .medium-column {
     width: 20%;
+}
+
+.index-column {
+    width: 5%;
 }

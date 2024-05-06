@@ -136,7 +136,7 @@ function DailyRecordBox() {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th className={cx("index-column")}>#</th>
                             <th>Content</th>
                             <th className={cx("smaller-column")}>Status</th>
                         </tr>
@@ -149,7 +149,7 @@ function DailyRecordBox() {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th className={cx("index-column")}>#</th>
                             <th>Content</th>
                             <th className={cx("smaller-column")}>Status</th>
                         </tr>

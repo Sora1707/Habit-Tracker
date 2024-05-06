@@ -1,5 +1,5 @@
 .container {
-    width: 800px;
+    width: 1000px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,4 +15,8 @@
 
 .smaller-column {
     width: 10%;
+}
+
+.index-column {
+    width: 5%;
 }
