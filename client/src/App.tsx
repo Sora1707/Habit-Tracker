@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import {
     HabitManager,
     CreateHabitBox,
     DailyRecordBox,
     WeekRecordBox,
+    DayRedirect,
+    WeekRedirect,
 } from "~/components";
 import DefaultLayout from "~/layouts/DefaultLayout";
 
@@ -13,6 +15,10 @@ function App() {
     return (
         <div className="App">
             <Routes>
+                <Route path="/" element={<DayRedirect />} />
+                <Route path="/day" element={<DayRedirect />} />
+                <Route path="/week" element={<WeekRedirect />} />
+
                 <Route
                     path="/create"
                     element={
