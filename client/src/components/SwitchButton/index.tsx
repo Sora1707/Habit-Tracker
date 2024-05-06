@@ -1,11 +1,8 @@
 import React, { memo, useState } from "react";
 import { Form } from "react-bootstrap";
 
-function SwitchButton({ checked, onChange }) {
-    const [checkedValue, setCheckedValue] = useState(false);
-
+function SwitchButton({ disabled, checked, onChange }) {
     const handleChange = () => {
-        setCheckedValue(!checkedValue);
         onChange();
     };
 
@@ -14,6 +11,7 @@ function SwitchButton({ checked, onChange }) {
             <Form.Check
                 type="switch"
                 id="custom-switch"
+                disabled={disabled}
                 checked={checked}
                 onChange={handleChange}
             />

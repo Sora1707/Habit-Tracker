@@ -4,8 +4,8 @@ export type Habit = {
     priority: number;
     isActivated: boolean;
     color: string;
-    // createdAt: Date;
-    // activatedAt: Date;
+    createdAt: Date;
+    activatedAt: Date;
 };
 
 export function habitCompare(habitA: Habit, habitB: Habit) {

@@ -5,10 +5,12 @@ import { Habit, habitCompare, Record, RecordMap } from "~/types";
 import { Table } from "react-bootstrap";
 import SwitchButton from "../SwitchButton";
 import { dataMutation, dataQuery } from "~/services";
+import { useParams } from "react-router-dom";
 
 const cx = getStyle(styles);
 
 function DailyRecordBox() {
+    const { year, month, day } = useParams();
     const [habits, setHabits] = useState<Habit[]>([]);
     // recordMap: habit -> record
     const [recordMap, setRecordMap] = useState<RecordMap>({});
@@ -26,15 +28,23 @@ function DailyRecordBox() {
             isActivated
         }
         `;
-        dataQuery(query, "findManyHabits").then((habits: Habit[]) =>
-            setHabits(habits)
+        dataQuery(query, "findManyHabits").then(
+            (habits: (Habit & { createdAt: string; updatedAt: string })[]) => {
+                setHabits(
+                    habits.map(habit => ({
+                        ...habit,
+                        createdAt: new Date(habit.createdAt),
+                        activatedAt: new Date(habit.activatedAt),
+                    }))
+                );
+            }
         );
     }, []);
 
     // Get TODAY's record
     useEffect(() => {
         const query = `
-        findManyRecords(filter: { date: "${getDateString(today)}" }) {
+        findManyRecords(filter: { date: "${year}/${month}/${day}" }) {
             id
             habit {
               id
@@ -80,6 +90,13 @@ function DailyRecordBox() {
         setRecordMap({ ...recordMap });
     }
 
+    // If the date is not today, prevent update
+    const disabled = !(
+        parseInt(year) === today.getFullYear() &&
+        parseInt(month) === today.getMonth() + 1 &&
+        parseInt(day) === today.getDate()
+    );
+
     // Divide into "Activated" and "Inactivated"
     const completeHabitsRows: JSX.Element[] = [];
     const incompleteHabitsRows: JSX.Element[] = [];
@@ -93,6 +110,7 @@ function DailyRecordBox() {
                 <td>{habit.content}</td>
                 <td>
                     <SwitchButton
+                        disabled={disabled}
                         checked={!!recordMap[habit.id]}
                         onChange={async () => {
                             await toggleHabitCompletion(index);

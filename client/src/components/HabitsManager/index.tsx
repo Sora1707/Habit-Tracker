@@ -1,7 +1,7 @@
 import React, { useState, useEffect, JSX } from "react";
 import { getStyle, getDateString } from "~/utils";
 import styles from "./HabitsManager.module.scss";
-import { Habit, habitCompare } from "~/types/Habit";
+import { Habit, habitCompare } from "~/types";
 import { Table } from "react-bootstrap";
 import SwitchButton from "../SwitchButton";
 import { dataMutation, dataQuery } from "~/services";
@@ -66,25 +66,38 @@ function HabitBox() {
             content,
             color,
             priority,
-            isActivated
+            isActivated,
+            createdAt,
+            activatedAt
         }
         `;
-        dataQuery(query, "allHabits").then((habits: Habit[]) =>
-            setHabits(habits)
+        dataQuery(query, "allHabits").then(
+            (habits: (Habit & { createdAt: string; updatedAt: string })[]) => {
+                setHabits(
+                    habits.map(habit => ({
+                        ...habit,
+                        createdAt: new Date(habit.createdAt),
+                        activatedAt: new Date(habit.activatedAt),
+                    }))
+                );
+            }
         );
     }, []);
 
     async function toggleHabitActivity(index: number) {
+        const isActivated = habits[index].isActivated;
         // Change database
         const query = `
-        toggleHabitActivation(id: "${habits[index].id}") 
+        updateHabitById(id: "${habits[index].id}", input: { 
+            isActivated: ${!isActivated}
+            ${isActivated ? "" : `activatedAt: "${getDateString(new Date())}"`}
+        }) 
         `;
-        await dataMutation(query, "toggleHabitActivation");
+        await dataMutation(query, "updateHabitById");
 
         // Create a completely new habits array
         const newHabits = [...habits];
-        newHabits[index].isActivated = !newHabits[index].isActivated;
-        console.log("update");
+        newHabits[index].isActivated = !isActivated;
         setHabits(newHabits);
     }
 
@@ -99,12 +112,11 @@ function HabitBox() {
             <tr key={index}>
                 <td>{rows.length + 1}</td>
                 <td>{habit.content}</td>
-                {/* <td>{getDateString(habit.createdAt)}</td>
-                <td>{getDateString(habit.activatedAt)}</td> */}
-                <td></td>
-                <td></td>
+                <td>{getDateString(habit.createdAt)}</td>
+                <td>{getDateString(habit.activatedAt)}</td>
                 <td>
                     <SwitchButton
+                        disabled={false}
                         checked={habit.isActivated}
                         onChange={async () => {
                             await toggleHabitActivity(index);

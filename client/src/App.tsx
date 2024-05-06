@@ -18,7 +18,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/day"
+                    path="/day/:year/:month/:day"
                     element={
                         <DefaultLayout>
                             <DailyRecordBox />
