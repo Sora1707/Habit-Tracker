@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getStyle } from "~/utils";
 import styles from "./CreateHabitBox.module.scss";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { dataMutation } from "~/services";
 
 const cx = getStyle(styles);
 
@@ -10,13 +11,19 @@ function CreateHabitBox() {
     const [priority, setPriority] = useState(0);
     const [color, setColor] = useState("#000000");
 
-    console.log(content, priority, color);
+    function createHabit() {
+        const query = `
+        createHabit(content: "${content}", priority: ${priority}, color: "${color}")
+        `;
+        dataMutation(query, "createHabit");
+    }
 
     return (
         <Form className={cx("container")}>
             <Form.Group className="mb-3">
                 <Form.Label htmlFor="habitContentInput">Content</Form.Label>
                 <Form.Control
+                    name="content"
                     id="habitContentInput"
                     type="input"
                     value={content}
@@ -30,6 +37,7 @@ function CreateHabitBox() {
                         Priority
                     </Form.Label>
                     <Form.Control
+                        name="priority"
                         id="habitPriorityInput"
                         value={priority}
                         type="number"
@@ -43,6 +51,7 @@ function CreateHabitBox() {
                         Color picker
                     </Form.Label>
                     <Form.Control
+                        name="color"
                         type="color"
                         id="habitColorInput"
                         defaultValue={color}
@@ -52,7 +61,14 @@ function CreateHabitBox() {
                     <Form.Control type="input" value={color} disabled />
                 </Form.Group>
             </Row>
-            <Button variant="primary" type="submit">
+            <Button
+                variant="primary"
+                type="submit"
+                onClick={e => {
+                    e.preventDefault();
+                    createHabit();
+                }}
+            >
                 Submit
             </Button>
         </Form>
