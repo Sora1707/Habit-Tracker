@@ -49,7 +49,11 @@ function DailyRecordBox() {
     // Get TODAY's record
     useEffect(() => {
         const query = `
-        findManyRecords(filter: { date: "${year}/${month}/${day}" }) {
+        findManyRecords(filter: { date: "${getDateString(
+            year,
+            month,
+            day
+        )}" }) {
             id
             habit {
               id
@@ -57,11 +61,11 @@ function DailyRecordBox() {
         }
         `;
         dataQuery(query, "findManyRecords").then((records: Record[]) => {
-            const recordMap: DailyRecordMap = {};
+            const dailyRecordMap: DailyRecordMap = {};
             for (const record of records) {
-                recordMap[record.habit.id] = record.id;
+                dailyRecordMap[record.habit.id] = record.id;
             }
-            setRecordMap(recordMap);
+            setRecordMap(dailyRecordMap);
         });
     }, [year, month, day]);
 
