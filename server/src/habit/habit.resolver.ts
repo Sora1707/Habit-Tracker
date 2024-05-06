@@ -2,6 +2,8 @@ import { Args, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import Habit from "./habit.model";
 import { Habit as HabitMongooseSchema } from "./habit.schema";
 import { BaseService, InjectBaseService } from "@/BaseService";
+import { HabitFilterInput } from "./habit.partial";
+import { FilterQuery } from "mongoose";
 
 @Resolver(of => Habit)
 export class HabitResolver {
@@ -13,6 +15,14 @@ export class HabitResolver {
     @Query(returns => [Habit], { name: "allHabits" })
     async getAll() {
         return await this.habitService.findMany({});
+    }
+
+    @Query(returns => [Habit], { name: "findManyHabits" })
+    async findMany(
+        @Args({ name: "filter", nullable: true, type: () => HabitFilterInput })
+        filter: FilterQuery<HabitMongooseSchema>,
+    ) {
+        return await this.habitService.findMany(filter);
     }
 
     @Mutation(returns => Boolean, { name: "toggleHabitActivation" })
