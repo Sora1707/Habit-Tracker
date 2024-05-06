@@ -1,7 +1,12 @@
 import React, { useState, useEffect, JSX, useMemo } from "react";
-import { getStyle, getDateString, getFormattedDateString } from "~/utils";
+import {
+    getStyle,
+    getDateString,
+    getFormattedDateString,
+    getDateStringByDate,
+} from "~/utils";
 import styles from "./DailyRecordBox.module.scss";
-import { Habit, habitCompare, Record, RecordMap } from "~/types";
+import { Habit, habitCompare, Record, DailyRecordMap } from "~/types";
 import { Table } from "react-bootstrap";
 import SwitchButton from "../SwitchButton";
 import { dataMutation, dataQuery } from "~/services";
@@ -13,7 +18,7 @@ function DailyRecordBox() {
     const { year, month, day } = useParams();
     const [habits, setHabits] = useState<Habit[]>([]);
     // recordMap: habit -> record
-    const [recordMap, setRecordMap] = useState<RecordMap>({});
+    const [dailyRecordMap, setRecordMap] = useState<DailyRecordMap>({});
 
     const today = useMemo(() => new Date(), []);
 
@@ -52,29 +57,29 @@ function DailyRecordBox() {
         }
         `;
         dataQuery(query, "findManyRecords").then((records: Record[]) => {
-            const recordMap = {};
+            const recordMap: DailyRecordMap = {};
             for (const record of records) {
                 recordMap[record.habit.id] = record.id;
             }
             setRecordMap(recordMap);
         });
-    }, []);
+    }, [year, month, day]);
 
     async function toggleHabitCompletion(index: number) {
         const habit = habits[index];
-        const recordId = recordMap[habit.id];
+        const recordId = dailyRecordMap[habit.id];
         // Complete -> Delete
         if (recordId) {
             const query = `
             deleteRecordById(id: "${recordId}")
             `;
             dataMutation(query, "deleteRecordById");
-            delete recordMap[habit.id];
+            delete dailyRecordMap[habit.id];
         }
         // Incomplete -> Create
         else {
             const query = `
-            createRecord(habitId: "${habit.id}", date:"${getDateString(
+            createRecord(habitId: "${habit.id}", date:"${getDateStringByDate(
                 today
             )}") {
                 id
@@ -85,9 +90,9 @@ function DailyRecordBox() {
             }
             `;
             const newRecord = await dataMutation<Record>(query, "createRecord");
-            recordMap[habit.id] = newRecord.id;
+            dailyRecordMap[habit.id] = newRecord.id;
         }
-        setRecordMap({ ...recordMap });
+        setRecordMap({ ...dailyRecordMap });
     }
 
     // If the date is not today, prevent update
@@ -101,7 +106,7 @@ function DailyRecordBox() {
     const completeHabitsRows: JSX.Element[] = [];
     const incompleteHabitsRows: JSX.Element[] = [];
     habits.sort(habitCompare).forEach((habit, index) => {
-        const rows = recordMap[habit.id]
+        const rows = dailyRecordMap[habit.id]
             ? completeHabitsRows
             : incompleteHabitsRows;
         rows.push(
@@ -111,7 +116,7 @@ function DailyRecordBox() {
                 <td>
                     <SwitchButton
                         disabled={disabled}
-                        checked={!!recordMap[habit.id]}
+                        checked={!!dailyRecordMap[habit.id]}
                         onChange={async () => {
                             await toggleHabitCompletion(index);
                         }}
@@ -146,7 +151,7 @@ function DailyRecordBox() {
                         <tr>
                             <th>#</th>
                             <th>Content</th>
-                            <th>Status</th>
+                            <th className={cx("smaller-column")}>Status</th>
                         </tr>
                     </thead>
                     <tbody>{incompleteHabitsRows}</tbody>

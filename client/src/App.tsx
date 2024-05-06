@@ -1,9 +1,13 @@
 import React from "react";
 import "./App.css";
-import { HabitManager, CreateHabitBox } from "~/components";
-import DefaultLayout from "~/layouts/DefaultLayout";
-import DailyRecordBox from "./components/DailyRecordBox";
 import { Routes, Route } from "react-router-dom";
+import {
+    HabitManager,
+    CreateHabitBox,
+    DailyRecordBox,
+    WeekRecordBox,
+} from "~/components";
+import DefaultLayout from "~/layouts/DefaultLayout";
 
 function App() {
     return (
@@ -25,6 +29,15 @@ function App() {
                         </DefaultLayout>
                     }
                 />
+                <Route
+                    path="/week/:year/:month/:day"
+                    element={
+                        <DefaultLayout>
+                            <WeekRecordBox />
+                        </DefaultLayout>
+                    }
+                />
+
                 <Route
                     path="/manager"
                     element={

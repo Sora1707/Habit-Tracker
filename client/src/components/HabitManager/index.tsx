@@ -1,5 +1,5 @@
 import React, { useState, useEffect, JSX } from "react";
-import { getStyle, getDateString } from "~/utils";
+import { getStyle, getDateStringByDate } from "~/utils";
 import styles from "./HabitManager.module.scss";
 import { Habit, habitCompare } from "~/types";
 import { Table } from "react-bootstrap";
@@ -42,7 +42,11 @@ function HabitManager() {
         const query = `
         updateHabitById(id: "${habits[index].id}", input: { 
             isActivated: ${!isActivated}
-            ${isActivated ? "" : `activatedAt: "${getDateString(new Date())}"`}
+            ${
+                isActivated
+                    ? ""
+                    : `activatedAt: "${getDateStringByDate(new Date())}"`
+            }
         }) 
         `;
         await dataMutation(query, "updateHabitById");
@@ -65,8 +69,8 @@ function HabitManager() {
                 <td>{rows.length + 1}</td>
                 <td>{habit.content}</td>
                 <td>{habit.priority}</td>
-                <td>{getDateString(habit.createdAt)}</td>
-                <td>{getDateString(habit.activatedAt)}</td>
+                <td>{getDateStringByDate(habit.createdAt)}</td>
+                <td>{getDateStringByDate(habit.activatedAt)}</td>
                 <td>
                     <SwitchButton
                         disabled={false}
@@ -88,7 +92,7 @@ function HabitManager() {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Content</th>
+                            <th>Habit</th>
                             <th className={cx("smaller-column")}>Priority</th>
                             <th className={cx("medium-column")}>Created at</th>
                             <th className={cx("medium-column")}>
@@ -107,7 +111,7 @@ function HabitManager() {
                         <tr>
                             <th>#</th>
                             <th>Content</th>
-                            <th>Priority</th>
+                            <th className={cx("smaller-column")}>Priority</th>
                             <th className={cx("medium-column")}>Created at</th>
                             <th className={cx("medium-column")}>
                                 Last activated at

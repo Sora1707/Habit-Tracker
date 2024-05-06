@@ -6,6 +6,10 @@ export type Record = {
     date: string;
 };
 
-export type RecordMap = {
+export type DailyRecordMap = {
     [id: string]: string | undefined;
+};
+
+export type WeekRecordMap = {
+    [date: string]: DailyRecordMap;
 };
